@@ -4,20 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AshishKohad27/backend-with-NEM.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AshishKohad27/backend-with-NEM/issues"
-  },
-  "homepage": "https://github.com/AshishKohad27/backend-with-NEM#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

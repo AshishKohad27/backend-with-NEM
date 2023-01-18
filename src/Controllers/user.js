@@ -12,9 +12,27 @@ const getUser = async () => {
         return {
             message: e.message,
             data: [],
-            flag: true,
+            flag: false,
         }
     }
 }
 
-module.exports = { getUser };
+const postUser = async (username, password) => {
+    try {
+        let user = await new userModel({ username, password });
+        user.save();
+        let userall = await userModel.find({});
+        return {
+            message: "User Added Successfully",
+            data: userall,
+            flag: true,
+        }
+    } catch (e) {
+        return {
+            message: e.message,
+            data: [],
+            flag: false,
+        }
+    }
+}
+module.exports = { getUser, postUser };
