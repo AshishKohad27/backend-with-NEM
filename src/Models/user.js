@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, default: mongoose } = require("mongoose");
 
 const userSchema = new Schema({
     username: String,
@@ -6,8 +6,13 @@ const userSchema = new Schema({
     role: {
         type: String,
         enum: ["admin", "user", "writer"],
-        default: "admin", 
-    }
+        default: "user",
+    },
+    // post: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "post",
+    //     required: true,
+    // }
 });
 
 const userModel = model("user", userSchema);

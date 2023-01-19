@@ -1,4 +1,5 @@
 const userModel = require("../Models/user");
+const jwt = require("jsonwebtoken");
 
 const getUser = async () => {
     try {
@@ -18,14 +19,29 @@ const getUser = async () => {
 }
 
 const postUser = async (username, password) => {
+    const token = req.headers["authorization"]
+    console.log('token:', token);
     try {
-        let user = await new userModel({ username, password });
-        user.save();
-        let userall = await userModel.find({});
-        return {
-            message: "User Added Successfully",
-            data: userall,
-            flag: true,
+        if (!token) {
+            let user = await new userModel({ username, password });
+            user.save();
+            return {
+                message: "User Added Successfully",
+                data: user,
+                flag: true,
+            }
+        } else {
+            const decode = jwt.decode(token, "SECRET")
+            console.log('decode:', decode);
+            if (decode.role === "admin") {
+                let user = await new userModel({ username, password, role: "writer" });
+                await user.save();
+                return {
+                    message: "Writer Added Successfully",
+                    data: user,
+                    flag: true,
+                }
+            }
         }
     } catch (e) {
         return {

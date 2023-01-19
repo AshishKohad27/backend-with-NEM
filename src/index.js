@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 
 //2.routes import
-const { userRoutes } = require("./Routes/allroutes");
+const { userRoutes, postRoute } = require("./Routes/allroutes");
 
 //3.connect
 const connect = require("./config/db");
@@ -18,7 +18,8 @@ const app = express();
 //6.use
 app.use(express.json());
 app.use(cors());
-app.use("/user", userRoutes)
+app.use("/user", userRoutes);
+app.use("/post", postRoute);
 
 //7. own routes
 app.get("/", (req, res) => {

@@ -1,3 +1,4 @@
 const userRoutes = require("./user");
+const postRoute = require("./post");
 
-module.exports = { userRoutes };
+module.exports = { userRoutes, postRoute };
