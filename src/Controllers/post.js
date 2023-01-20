@@ -2,13 +2,14 @@ const postModel = require("../Models/post");
 
 const getPost = async ({ orderBy, limit, page }) => {
     if (!limit) {
-        limit = 2
+        limit = 10
     }
     if (!page) {
         page = 1
     }
     try {
-        let Post = await postModel.find({}).sort({ title: orderBy === "asc" ? 1 : orderBy === "desc" ? -1 : 0 }).limit(+limit).skip((+page - 1) * limit);
+        // let Post = await postModel.find({}).sort({ title: orderBy === "asc" ? 1 : orderBy === "desc" ? -1 : 0 }).limit(+limit).skip((+page - 1) * limit);
+        let Post = await postModel.find().populate([{ path: "auth" }]);
         return {
             message: "Post get Successfully",
             data: Post,
@@ -23,9 +24,9 @@ const getPost = async ({ orderBy, limit, page }) => {
     }
 }
 
-const addPost = async (title, desc, author) => {
+const addPost = async (title, desc, author, auth) => {
     try {
-        let post = await new postModel({ title, desc, author });
+        let post = await new postModel({ title, desc, author, auth });
         post.save();
         let postall = await postModel.find({});
         return {
